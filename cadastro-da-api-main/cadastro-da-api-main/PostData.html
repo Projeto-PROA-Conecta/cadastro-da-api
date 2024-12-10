@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link href="não sei.css" rel="stylesheet" </head>
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi me-2" width="40" height="32">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+                <span class="fs-4">Conecta Mais</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="Home.html" class="nav-link active" aria-current="page">Home</a></li>
+                <li class="nav-item"><a href="PostData.html" class="nav-link">Cadastrar</a></li>
+                <li class="nav-item"><a href="GetData (1).html" class="nav-link">Listar</a></li>
+                <li class="nav-item"><a href="GetParamData.html" class="nav-link">Buscar</a></li>
+                <li class="nav-item"><a href="UpdateData.html" class="nav-link">Atualizar</a></li>
+                <li class="nav-item"><a href="DeleteData.html" class="nav-link">Apagar</a></li>
+                <li class="nav-item"><a href="Login.html" class="nav-link">Vagas</a></li>
+            </ul>
+        </header>
+    </div>
+    <div class="container">
+        <div class="col-md-12 col-lg-12">
+            <h4 class="mb-3">Cadastrar</h4>
+
+
+            <form action="http://localhost:8083/usuarios/salvar" id="formulario" class="needs-validation">
+
+                <div class="col-sm-12">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" name="nome" id="nome" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" name="email" id="email" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="telefone" class="form-label">Telefone:</label>
+                    <input type="tel" name="telefone" id="telefone" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="senha" class="form-label">Senha ( insira uma senha de pelo menos 6 caracteres e 1
+                        caractere especial):</label>
+                    <input type="password" name="senha" id="senha" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="datadenascimento" class="form-label">Data de nascimento:</label>
+                    <input type="date" name="datadenascimento" id="datadenascimento" class="form-control" required>
+                </div>
+
+                <script>
+                    const dataInput = document.getElementById("datadenascimento");
+
+                    // Manipulando o evento de alteração
+                    dataInput.addEventListener("change", (event) => {
+                        const data = new Date(event.target.value); // Obter o valor como objeto Date
+                        console.log(`Ano: ${data.getFullYear()}, Mês: ${data.getMonth() + 1}, Dia: ${data.getDate()}`);
+                    });
+
+                    // Exemplo de configuração de valor
+                    dataInput.value = "2024-12-01"; // Define a data no formato YYYY-MM-DD
+                </script>
+
+
+
+
+                <div class="col-sm-12">
+                    <label for="cpf" class="form-label">CPF:</label>
+                    <input type="text" name="cpf" id="cpf" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="rg" class="form-label">RG:</label>
+                    <input type="text" name="rg" id="rg" class="form-control" required>
+                </div>
+
+                <div class="col-sm-12">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input type="text" name="cep" id="cep" class="form-control" required>
+                </div>
+
+
+                </label>
+                <div class="row">
+                    <input type="submit" class="my-4 w-100 btn btn-primary btn-lg" id="enviar"
+                        value="Registrar Cadastro">
+
+                </div>
+                <div class="row">
+                    <div id="response" class="response">
+
+                    </div>
+
+                    <div id="txtFeedback" class="text-red text-center">
+
+
+                        <div id="txtFeedback" class="text-red text-center">
+
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        const btn = document.getElementById('enviar');
+        const form = document.getElementById('formulario');
+        var url = 'http://localhost:8083/usuarios/salvar'
+
+        form.addEventListener('submit', async function (event) {
+
+            event.preventDefault(); // Evita que o navegador envie um GET
+
+            const formData = new FormData(form);
+            console.log(formData);
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(Object.fromEntries(formData))
+            });
+
+            if (response.ok) {
+                alert('Registro inserido com sucesso!');
+                console.log(response);
+            } else {
+                alert('Erro ao inserir registro!');
+            }
+        });
+    </script>
+</body>
+
+</html>
